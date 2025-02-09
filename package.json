@@ -1,8 +1,11 @@
 {
   "name": "eslint-vue-setup-rules",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "type": "module",
   "scripts": {
     "test": "mocha"
