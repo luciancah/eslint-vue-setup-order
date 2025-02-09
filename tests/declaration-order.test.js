@@ -60,11 +60,41 @@ function handleClick() {
 </script>
 `;
 
+const customValidCode = `
+<script setup>
+const props = defineProps();
+const hello = "Hello World!";
+</script>
+`;
+
+const customInvalidCode = `
+<script setup>
+const hello = "Hello World!";
+const props = defineProps();
+</script>
+`;
+
+const customFixedCode = `
+<script setup>
+const props = defineProps();
+
+const hello = "Hello World!";
+</script>
+`;
+
 ruleTester.run("declaration-order", rule, {
   valid: [
     {
-      code: validCode
-    }
+      code: validCode,
+    },
+    {
+      code: customValidCode,
+      options: [
+        {
+          sectionOrder: ["defineProps", "plainVars"],
+        },
+      ],
+    },
   ],
   invalid: [
     {
@@ -73,9 +103,24 @@ ruleTester.run("declaration-order", rule, {
       errors: [
         {
           message:
-            "Vue 3 <script setup> 내 선언 순서가 올바르지 않습니다. 자동 수정(fix)을 적용합니다."
-        }
-      ]
-    }
-  ]
+            "Vue 3 <script setup> 내 선언 순서가 올바르지 않습니다. 자동 수정(fix)을 적용합니다.",
+        },
+      ],
+    },
+    {
+      code: customInvalidCode,
+      output: customFixedCode,
+      options: [
+        {
+          sectionOrder: ["defineProps", "plainVars"],
+        },
+      ],
+      errors: [
+        {
+          message:
+            "Vue 3 <script setup> 내 선언 순서가 올바르지 않습니다. 자동 수정(fix)을 적용합니다.",
+        },
+      ],
+    },
+  ],
 });

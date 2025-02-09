@@ -4,9 +4,9 @@
 
 <br/>
 
-## Concept
+## 🛠 Concept
 
-### Order
+### 📌 Order
 The declarations in `<script setup>` are sorted in the following fixed order:
 ```
 "defineProps"
@@ -24,7 +24,7 @@ The declarations in `<script setup>` are sorted in the following fixed order:
 
 <br/>
 
-### Grouping
+### 📌 Grouping
 Declarations that belong to the same group are grouped together without extra blank lines between them.<br/>
 For example, all declarations starting with define (i.e., "defineProps", "defineEmits", and "defineOthers") are treated as one group.<br/>
 Within this group, the declarations appear consecutively with a single line break separating each item.<br/>
@@ -54,7 +54,7 @@ Notice that there are only single newlines between each line.
 
 <br/>
 
-### Separation Between Groups
+### 📌 Separation Between Groups
 A single blank line (which corresponds to two consecutive newline characters) is inserted between different groups.<br/> 
 This means that if you have a group of define declarations followed by another group (such as "plainVars"),<br/> 
 there will be one blank line between these groups in the final sorted output.<br/> 
@@ -90,8 +90,101 @@ Notice the blank line between the two groups, which helps visually separate diff
 
 <br/>
 
-## How to Apply
-### Method 1: Install via npm
+
+<br/>
+
+## 🛠 Section Order Customization
+By default, the rule enforces the predefined order of declarations within `<script setup>`. <br/>
+However, you can customize the declaration order by specifying the `sectionOrder` option in `eslint.config.js`.
+
+### 📌 Default Order
+By default, the rule follows this order:
+
+```js
+"defineProps"
+"defineEmits"
+"defineOthers"
+"plainVars"
+"reactiveVars"
+"composables"
+"computed"
+"watchers"
+"lifecycle"
+"functions"
+"unknowns"
+```
+
+<br/>
+
+### 📌 Customizing the Order
+If you want to specify a custom order, you can do so in eslint.config.js by providing a sectionOrder array.<br/>
+
+Example: Prioritizing defineProps and plainVars
+
+```js
+// eslint.config.js
+export default [
+  {
+    files: ["**/*.vue"],
+    languageOptions: {
+      parser: vueEslintParser,
+      parserOptions: {
+        parser: typescriptEslintParser,
+        ecmaVersion: 2022,
+        sourceType: "module",
+      },
+    },
+    plugins: {
+      "vue3-script-setup": {
+        rules: {
+          "declaration-order": eslintVueSetupOrderRule,
+        },
+      },
+    },
+    rules: {
+      "vue3-script-setup/declaration-order": [
+        "error",
+        {
+          sectionOrder: ["defineProps", "plainVars"], // this!!
+        },
+      ],
+    },
+  },
+];
+```
+
+
+In this case:
+- defineProps will always be placed before plainVars.
+- Other declarations will follow their default order.
+
+<br/>
+
+
+### 📌 Invalid Section Order Handling
+If an invalid section is provided in sectionOrder, an ESLint error will be thrown.
+
+For example, this incorrect configuration:
+
+```js
+"vue3-script-setup/declaration-order": [
+  "error",
+  {
+    sectionOrder: ["defineProps", "invalidSection"],
+  },
+],
+```
+will result in the following error:
+```
+Error: Invalid "sectionOrder" option: "invalidSection" is not a recognized section. Valid sections: defineProps, defineEmits, defineOthers, plainVars, reactiveVars, composables, computed, watchers, lifecycle, functions, unknowns.
+This ensures that only valid sections are allowed, preventing misconfiguration.
+```
+With this customization, you can fine-tune the declaration order to suit your project’s coding style while still enforcing consistency. 🚀
+
+<br/>
+
+## 🛠 How to Apply
+### 📌 Method 1: Install via npm
 ```
 npm i -D https://github.com/KumJungMin/eslint-vue-setup-order
 ```
@@ -124,7 +217,7 @@ export default [
 
 <br/>
 
-### Method 2: Include the Rules File in Your Project
+### 📌 Method 2: Include the Rules File in Your Project
 Alternatively, you can add the rule file directly to your project:
 
 1. Add the file `rules/declaration-order.js` to your project directory:
@@ -169,7 +262,7 @@ export default [
 
 <br/>
 
-## Testing
+## 🛠 Testing
 When you run the command:
 ```
 npx eslint .
