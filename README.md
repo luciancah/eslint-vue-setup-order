@@ -21,6 +21,9 @@ The declarations in `<script setup>` are sorted in the following fixed order:
 "functions"
 "unknowns"
 ```
+
+<br/>
+
 ### Grouping
 Declarations that belong to the same group are grouped together without extra blank lines between them.<br/>
 For example, all declarations starting with define (i.e., "defineProps", "defineEmits", and "defineOthers") are treated as one group.<br/>
@@ -36,13 +39,20 @@ const emits = defineEmits();
 
 const bb = defineExpose();
 ```
+
+<br/>
+
 They are grouped together in the final output as:
 ```js
 const aa = defineProps<{ msg: string }>();
 const emits = defineEmits();
 const bb = defineExpose();
 ```
+<br/>
+
 Notice that there are only single newlines between each line.
+
+<br/>
 
 ### Separation Between Groups
 A single blank line (which corresponds to two consecutive newline characters) is inserted between different groups.<br/> 
@@ -55,11 +65,17 @@ _Group 1 (define group):_
 const aa = defineProps<{ msg: string }>();
 const emits = defineEmits();
 ```
+
+<br/>
+
 _Group 2 (plain variable declarations):_
 ```js
 const hello = "Hello World!";
 const count = ref(0);
 ```
+
+<br/>
+
 The final sorted output will be:
 ```js
 const aa = defineProps<{ msg: string }>();
@@ -68,7 +84,10 @@ const emits = defineEmits();
 const hello = "Hello World!";
 const count = ref(0);
 ```
+<br/>
+
 Notice the blank line between the two groups, which helps visually separate different types of declarations.
+
 <br/>
 
 ## How to Apply
