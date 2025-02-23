@@ -9,17 +9,19 @@
 ### 📌 Order
 The declarations in `<script setup>` are sorted in the following fixed order:
 ```
+"type",
 "defineProps"
 "defineEmits"
 "defineOthers"
+"class",
 "plainVars"
 "reactiveVars"
 "composables"
 "computed"
 "watchers"
 "lifecycle"
-"functions"
 "unknowns"
+"functions"
 ```
 
 <br/>
@@ -101,17 +103,19 @@ However, you can customize the declaration order by specifying the `sectionOrder
 By default, the rule follows this order:
 
 ```js
+"type",
 "defineProps"
 "defineEmits"
 "defineOthers"
+"class",
 "plainVars"
 "reactiveVars"
 "composables"
 "computed"
 "watchers"
 "lifecycle"
-"functions"
 "unknowns"
+"functions"
 ```
 
 <br/>
