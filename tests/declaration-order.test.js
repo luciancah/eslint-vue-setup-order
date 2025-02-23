@@ -82,6 +82,39 @@ const hello = "Hello World!";
 </script>
 `;
 
+const customLifecycleValidCode = `
+<script setup>
+onMounted(() => {
+  console.log("onMounted");
+});
+onBeforeMount(() => {
+  console.log("onBeforeMount");
+});
+</script>
+`;
+
+const customLifecycleInvalidCode = `
+<script setup>
+onBeforeMount(() => {
+  console.log("onBeforeMount");
+});
+onMounted(() => {
+  console.log("onMounted");
+});
+</script>
+`;
+
+const customLifecycleFixedCode = `
+<script setup>
+onMounted(() => {
+  console.log("onMounted");
+});
+onBeforeMount(() => {
+  console.log("onBeforeMount");
+});
+</script>
+`;
+
 ruleTester.run("declaration-order", rule, {
   valid: [
     {
@@ -92,6 +125,18 @@ ruleTester.run("declaration-order", rule, {
       options: [
         {
           sectionOrder: ["defineProps", "plainVars"],
+        },
+      ],
+    },
+    {
+      code: customLifecycleValidCode,
+      options: [
+        {
+          sectionOrder: ["lifecycle"],
+          lifecycleOrder: {
+            onMounted: 0,
+            onBeforeMount: 1,
+          },
         },
       ],
     },
@@ -113,6 +158,25 @@ ruleTester.run("declaration-order", rule, {
       options: [
         {
           sectionOrder: ["defineProps", "plainVars"],
+        },
+      ],
+      errors: [
+        {
+          message:
+            "Vue 3 <script setup> 내 선언 순서가 올바르지 않습니다. 자동 수정(fix)을 적용합니다.",
+        },
+      ],
+    },
+    {
+      code: customLifecycleInvalidCode,
+      output: customLifecycleFixedCode,
+      options: [
+        {
+          sectionOrder: ["lifecycle"],
+          lifecycleOrder: {
+            onMounted: 0,
+            onBeforeMount: 1,
+          },
         },
       ],
       errors: [
