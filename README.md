@@ -54,6 +54,8 @@ const bb = defineExpose();
 
 Notice that there are only single newlines between each line.
 
+However, declarations belonging to the **`unknown` group retain their original formatting**, without merging the internal newlines.
+
 <br/>
 
 ### 📌 Separation Between Groups

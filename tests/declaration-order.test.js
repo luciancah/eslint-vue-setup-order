@@ -63,6 +63,7 @@ function handleClick() {
 const customValidCode = `
 <script setup>
 const props = defineProps();
+
 const hello = "Hello World!";
 </script>
 `;
