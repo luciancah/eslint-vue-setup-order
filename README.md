@@ -181,6 +181,78 @@ This ensures that only valid sections are allowed, preventing misconfiguration.
 ```
 With this customization, you can fine-tune the declaration order to suit your project’s coding style while still enforcing consistency. 🚀
 
+
+<br/><br/>
+
+## 🛠 lifecycle Order Customization
+By default, the rule enforces the predefined order of declarations within `<script setup>`. <br/>
+However, you can customize the declaration order by specifying the `lifecycleOrder` option in `eslint.config.js`.
+
+### 📌 Default Order
+By default, the rule follows this order:
+
+```js
+onBeforeMount: 0,
+onMounted: 1,
+onBeforeUpdate: 2,
+onUpdated: 3,
+onBeforeUnmount: 4,
+onUnmounted: 5,
+onErrorCaptured: 6,
+onRenderTracked: 7,
+onRenderTriggered: 8,
+onActivated: 9,
+onDeactivated: 10,
+onServerPrefetch: 11,
+```
+
+<br/>
+
+### 📌 Customizing the Order
+If you want to specify a custom order, you can do so in eslint.config.js by providing a lifecycleOrder object.<br/>
+
+Example: Prioritizing defineProps and plainVars
+
+```js
+// eslint.config.js
+export default [
+  {
+    files: ["**/*.vue"],
+    languageOptions: {
+      parser: vueEslintParser,
+      parserOptions: {
+        parser: typescriptEslintParser,
+        ecmaVersion: 2022,
+        sourceType: "module",
+      },
+    },
+    plugins: {
+      "vue3-script-setup": {
+        rules: {
+          "declaration-order": eslintVueSetupOrderRule,
+        },
+      },
+    },
+    rules: {
+      "vue3-script-setup/declaration-order": [
+        "error",
+        {
+          lifecycleOrder: { // this!!
+            onMounted: 0,
+            onBeforeMount: 1,
+          }
+        },
+      ],
+    },
+  },
+];
+```
+
+
+In this case:
+- onMounted will always be placed before onBeforeMount.
+
+
 <br/>
 
 ## 🛠 How to Apply
