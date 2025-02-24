@@ -264,7 +264,7 @@ In this case:
 ## 🛠 How to Apply
 ### 📌 Method 1: Install via npm
 ```
-npm i -D https://github.com/KumJungMin/eslint-vue-setup-order
+npm i eslint-vue-setup-rules
 ```
 
 <br/>
