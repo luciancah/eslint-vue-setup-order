@@ -264,7 +264,15 @@ In this case:
 ## 🛠 How to Apply
 ### 📌 Method 1: Install via npm
 ```
-npm i eslint-vue-setup-rules
+pnpm install eslint-vue-setup-rules
+
+OR
+
+yarn add eslint-vue-setup-rules
+
+OR 
+
+pnpm install https://github.com/KumJungMin/eslint-vue-setup-order
 ```
 
 <br/>
@@ -272,10 +280,12 @@ npm i eslint-vue-setup-rules
 Then, add the ESLint plugin to your `eslint.config.js` (for ESLint v9 using the flat config pattern):
 ```js
 // eslint.config.js
+import vueSetupRules from "eslint-vue-setup-rules";
+
 export default [
   {
     // Add the plugin object here:
-    plugins: { "vue3-script-setup": eslintVueSetupRules },
+    plugins: { "vue3-script-setup": vueSetupRules },
     rules: { "vue3-script-setup/declaration-order": "error" },
   },
   {
