@@ -1,7 +1,7 @@
 {
   "name": "eslint-vue-setup-rules",
-  "version": "1.0.6",
-  "description": "",
+  "version": "1.0.7",
+  "description": "sort of declaration of script setup in Vue 3",
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js"
@@ -10,7 +10,14 @@
   "scripts": {
     "test": "mocha"
   },
-  "keywords": [],
+  "keywords": [
+    "eslint",
+    "vue",
+    "vue3",
+    "setup",
+    "script setup",
+    "rules"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
