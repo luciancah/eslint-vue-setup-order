@@ -10,49 +10,22 @@
 The declarations in `<script setup>` are sorted in the following fixed order:
 ```
 "type",
-"defineProps"
-"defineEmits"
-"defineOthers"
+"defineProps",
+"defineEmits",
+"defineSlots",
+"defineModel",
+"defineOptions",
 "class",
-"plainVars"
-"reactiveVars"
-"composables"
-"computed"
-"watchers"
-"lifecycle"
-"unknowns"
-"functions"
+"plainVars",
+"reactiveVars",
+"composables",
+"computed",
+"watchers",
+"lifecycle",
+"unknowns",
+"functions",
+"defineExpose"
 ```
-
-<br/>
-
-### 📌 Grouping
-Declarations that belong to the same group are grouped together without extra blank lines between them.<br/>
-For example, all declarations starting with define (i.e., "defineProps", "defineEmits", and "defineOthers") are treated as one group.<br/>
-Within this group, the declarations appear consecutively with a single line break separating each item.<br/>
-
-Example:<br/>
-If you have the following declarations (all belonging to the define group):
-
-```js
-const aa = defineProps<{ msg: string }>();
-
-const emits = defineEmits();
-
-const bb = defineExpose();
-```
-
-<br/>
-
-They are grouped together in the final output as:
-```js
-const aa = defineProps<{ msg: string }>();
-const emits = defineEmits();
-const bb = defineExpose();
-```
-<br/>
-
-Notice that there are only single newlines between each line.
 
 <br/>
 
@@ -62,10 +35,9 @@ This means that if you have a group of define declarations followed by another g
 there will be one blank line between these groups in the final sorted output.<br/> 
 
 Example: Consider the following two groups:<br/> 
-_Group 1 (define group):_
+_Group 1 (defineProps):_
 ```js
 const aa = defineProps<{ msg: string }>();
-const emits = defineEmits();
 ```
 
 <br/>
@@ -73,7 +45,7 @@ const emits = defineEmits();
 _Group 2 (plain variable declarations):_
 ```js
 const hello = "Hello World!";
-const count = ref(0);
+const count = 0
 ```
 
 <br/>
@@ -81,10 +53,9 @@ const count = ref(0);
 The final sorted output will be:
 ```js
 const aa = defineProps<{ msg: string }>();
-const emits = defineEmits();
 
 const hello = "Hello World!";
-const count = ref(0);
+const count = 0
 ```
 <br/>
 
@@ -104,18 +75,21 @@ By default, the rule follows this order:
 
 ```js
 "type",
-"defineProps"
-"defineEmits"
-"defineOthers"
+"defineProps",
+"defineEmits",
+"defineSlots",
+"defineModel",
+"defineOptions",
 "class",
-"plainVars"
-"reactiveVars"
-"composables"
-"computed"
-"watchers"
-"lifecycle"
-"unknowns"
-"functions"
+"plainVars",
+"reactiveVars",
+"composables",
+"computed",
+"watchers",
+"lifecycle",
+"unknowns",
+"functions",
+"defineExpose"
 ```
 
 <br/>
